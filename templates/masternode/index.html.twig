@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Masternode List{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="card my-5 mx-auto w-75">
+        <div class="card-header col-12">
+            <h1 class="text-center">Masternode List</h1>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Alias</th>
+                        <th>Ip</th>
+                        <th>Port</th>
+                        <th>Creator</th>
+                        <th>Cryptocurrency</th>
+                        <th>Status</th>
+                        {% if is_granted("ROLE_ADMIN") %}
+                            <th>Advanced</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                {% for masternode in masternodes %}
+                    {% if app.user.email == masternode.user.email or is_granted("ROLE_ADMIN") %}
+                        <tr>
+                            <td>{{ masternode.id }}</td>
+                            <td>{{ masternode.alias }}</td>
+                            <td>{{ masternode.ip }}</td>
+                            <td>{{ masternode.port }}</td>
+                            <td>{{ masternode.user.email }}</td>
+                            <td>
+                            {% if masternode.cryptocurrency.filename %}
+                                <img src="{{ vich_uploader_asset(masternode.cryptocurrency, 'imageFile')|imagine_filter('thumb') }}" class="masternode-logo mr-2" alt="[cryptocurrency-logo]">
+                            {% else %}
+                                <img src="{{ 'images/logo/empty.png'|imagine_filter('thumb') }}" class="masternode-logo mr-2" alt="[cryptocurrency-logo]">
+                            {% endif %}
+                            {{ masternode.cryptocurrency.name }}
+                            </td>
+                            <td>[actif]</td>
+                            {% if is_granted("ROLE_ADMIN") %}
+                                <td>
+                                    <a href="{{ path('masternode_show', {'id': masternode.id}) }}">
+                                        <button class="btn btn-warning">Details</button>
+                                    </a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                    {% else %}
+                        <tr>
+                            <td colspan="8" class="text-center">No Masternode Found</td>
+                        </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ cryptocurrency.name }} - {{ cryptocurrency.ticker }}{% endblock %}
+
+{% block body %}
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
+            <div class="card w-75 mx-auto mb-5">
+                <div class="card-header text-center">Cryptocurrency Details</div>
+                <div class="card-body">
+                    <h5 class="card-title text-center">
+                        <img src="{{ crypto.image.small }}" alt="{{ crypto.name }}"> {{ crypto.name }}
+                    </h5>
+                    <ul>
+                        <li>Symbol : {{ crypto.symbol }}</li>
+                        <li>Website : {{ crypto.links.homepage[0] }}</li>
+                        <li>BitcoinTalk : {{ crypto.links.official_forum_url[0] }}</li>
+                        <li>Last Update : {{ crypto.last_updated }}</li>
+                        <li>Genesis Block : {{ crypto.genesis_date }}</li>
+                        <li>GitHub : {{ crypto.links.repos_url.github[0] }}</li>
+                    </ul>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <div class="w-100 text-center">
+                        {% if is_granted("ROLE_ADMIN") %}
+                            {{ include('cryptocurrency/_delete_form.html.twig') }}
+                        {% endif %}
+                    </div>
+                    <div class="w-100 text-center">
+                        <a href="{{ path('cryptocurrency_index') }}">
+                            <button class="btn btn-secondary w-75 my-3">Go Back</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
+            <div class="card w-100 mx-auto mb-5">
+                <div class="card-header text-center">Graphic</div>
+                <div class="card-body">
+                    <h5 class="card-title">Light card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
+            <div class="card w-75 mx-auto">
+                <div class="card-header text-center">Social Links</div>
+                <div class="card-body">
+                    <ul>
+                        <li>Reddit : {{ crypto.links.subreddit_url }}</li>
+                        <li>Twitter-Tag : @{{ crypto.links.twitter_screen_name }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

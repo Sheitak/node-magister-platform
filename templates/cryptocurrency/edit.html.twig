@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Cryptocurrency{% endblock %}
+
+{% block body %}
+    {{ include('cryptocurrency/_form.html.twig', {'button_label': 'Update'}) }}
+    <div class="container d-flex pb-4">
+        <a href="{{ path('cryptocurrency_index') }}">
+            <button class="btn btn-secondary mr-2"><- Back</button>
+        </a>
+        {{ include('cryptocurrency/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

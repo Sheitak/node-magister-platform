@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="card mt-5">
+        <div class="card-header col-12">
+        <div class="text-center">
+            <h3>New {{ cryptocurrency.slug }} Masternode</h3>
+            {% if cryptocurrency.filename %}
+                <img src="{{ vich_uploader_asset(cryptocurrency, 'imageFile')|imagine_filter('thumb') }}" class="w-80 h-80 my-2 mx-4" alt="card-img-top">
+            {% endif %}
+        </div>
+        </div>
+        <div class="card-body">
+            <div class="text-center mb-5">
+                <h6 class="font-weight-light font-italic">Okay {{ app.user.email }}, let me hear what digital asset are you talking about ?</h6>
+            </div>
+            {{ form_start(form) }}
+                {{ form_errors(form) }}
+                {{ form_widget(form) }}
+                <div class="text-center">
+                    <button class="btn btn-primary col-2">{{ button_label|default('Save') }}</button>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

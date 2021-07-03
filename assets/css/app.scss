@@ -1,0 +1,52 @@
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    background-color: lightgray;
+}
+
+p {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.masternode-logo {
+    display: inline-block;
+    width: 35px;
+}
+
+.row-button {
+    margin-left: auto;
+}
+
+//CHART.JS
+#chart-js {
+    border-color: black;
+}
+
+.footer {
+    background: #007bff;
+    color:white;
+    .links{
+      ul {list-style-type: none;}
+      li a {
+        color: white;
+        transition: color .2s;
+        &:hover{
+          text-decoration:none;
+          color:#4180CB;
+          }
+      }
+    }  
+    .about-company {
+      i{font-size: 25px;}
+      a{
+        color:white;
+        transition: color .2s;
+        &:hover{color:#4180CB}
+      }
+    } 
+    .location {
+      i{font-size: 18px;}
+    }
+    .copyright p{border-top:1px solid rgba(255,255,255,.1);} 
+  }

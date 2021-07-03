@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Masternode{% endblock %}
+
+{% block body %}
+    {{ include('masternode/_form.html.twig') }}
+    <div class="text-center my-4">
+        <a href="{{ path('masternode_index') }}">
+            <button class="btn btn-secondary col-2">Go Back</button>
+        </a>
+    </div>
+{% endblock %}

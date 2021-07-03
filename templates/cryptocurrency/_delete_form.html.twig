@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('cryptocurrency_delete', {'id': cryptocurrency.id}) }}" onsubmit="return confirm('Are you sure to delete this cryptocurrency ?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ cryptocurrency.id) }}">
+    <button class="btn btn-danger install-button">Delete Cryptocurrency</button>
+</form>

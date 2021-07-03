@@ -1,0 +1,11 @@
+<div class="card w-50 m-auto">
+    <div class="card-header text-center">
+        <h1>Hello, Please confirm your email!</h1>
+    </div>
+    <div class="card-body">
+        <p>Please confirm your email address by clicking the following link :<br><br>
+        <a href="{{ signedUrl|raw }}">Confirm my Email</a>.
+        This link will expire in {{ expiresAt|date('g') }} hour(s).</p>
+        <p>Thank you !</p>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cryptocurrencies{% endblock %}
+
+{% block body %}
+    <div class="container-fluid my-5">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% if is_granted("ROLE_ADMIN") %}
+        <div class="text-center">
+            <a href="{{ path('cryptocurrency_new') }}">
+                <button class="btn btn-warning w-25 col-12">Add Cryptocurrency</button>
+            </a>
+        </div>
+        {% endif %}
+        <div class="container-fluid mt-5">
+            <div class="row justify-content-center w-100">
+                {{ form_start(form) }}
+                    <div class="form-row">
+                        <div class="col-12 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-6">
+                            {{ form_row(form.minCollateral) }}
+                        </div>
+                        <div class="col-12 col-xl-5 col-lg-5 col-md-5 col-sm-5 col-xs-6">
+                            {{ form_row(form.consensus) }}
+                        </div>
+                        <div class="col-12 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                            <div class="form-group">
+                                <button class="btn btn-primary w-100">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+        <div class="row">
+            {% for cryptocurrency in cryptocurrencies %}
+                <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-8 my-3">
+                    <div class="card w-50 mx-auto">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">
+                                <a href="{{ path('cryptocurrency_show', {'slug': cryptocurrency.slug, 'ticker': cryptocurrency.ticker }) }}">{{ cryptocurrency.ticker }}</a>
+                            </h5>
+                            <div class="text-center">
+                                {% if cryptocurrency.filename %}
+                                    <img src="{{ vich_uploader_asset(cryptocurrency, 'imageFile')|imagine_filter('thumb') }}" class="w-80 h-80" alt="[cryptocurrency-logo]">
+                                {% else %}
+                                    <img src="{{ 'images/logo/empty.png'|imagine_filter('thumb') }}" class="w-80 h-80" alt="[cryptocurrency-logo]">
+                                {% endif %}
+                            </div>
+                            <h5 class="card-title text-center">
+                                <a href="{{ path('cryptocurrency_show', {'slug': cryptocurrency.slug, 'ticker': cryptocurrency.ticker }) }}">{{ cryptocurrency.name }}</a>
+                            </h5>
+                            <div class="card-text text-center">
+                                {{ cryptocurrency.consensus }} | {{ cryptocurrency.FormattedCollateral }}
+                            </div>
+                            <p>lorem ipsum dolor sit amet, consectetur adip tre tre hgfd oiuyt kjhgf oiuy.</p>
+                            {# Penser filtre nl2br sur contenu base de donnée #}
+                            <div class="col-12">
+                                <div class="text-center">
+                                    <a href="{{ path('masternode_new', {'name': cryptocurrency.name}) }}">
+                                        <button class="btn btn-primary w-100 mt-2">Install</button>
+                                    </a>
+                                </div>
+                                <div class="text-center">
+                                    <a href="{{ path('cryptocurrency_show', {'slug': cryptocurrency.slug, 'ticker': cryptocurrency.ticker }) }}">
+                                        <button class="btn btn-info w-100 mt-2">Details</button>
+                                    </a>
+                                </div>
+                            </div>
+                            {% if is_granted("ROLE_ADMIN") %}
+                                <div class="text-center">
+                                    <a href="{{ path('cryptocurrency_edit', {'name': cryptocurrency.name}) }}">
+                                        <button class="btn btn-warning w-100 mt-2">Edit</button>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="ml-auto mr-auto">
+                <div class="col col-md-4">
+                    <div class="pagination mt-5">
+                        {{ knp_pagination_render(cryptocurrencies) }}
+                    </div>
+                </div>
+            </div>
+        </div>   
+    </div>
+{% endblock %}

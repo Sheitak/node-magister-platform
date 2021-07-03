@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Masternode{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="card my-5">
+        <div class="card-header col-12">
+            <h1 class="text-center">{{ masternode.cryptocurrency.name }} Masternode</h1>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Cryptocurrency</th>
+                        <td>
+                            {% if masternode.cryptocurrency.filename %}
+                                <img src="{{ vich_uploader_asset(masternode.cryptocurrency, 'imageFile')|imagine_filter('thumb') }}" class="logo-masternode mr-3" alt="card-img-top">
+                            {% endif %}
+                            {{ masternode.cryptocurrency.name }} - {{ masternode.cryptocurrency.ticker }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Masternode Id</th>
+                        <td>{{ masternode.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Alias</th>
+                        <td>{{ masternode.alias }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ip</th>
+                        <td>{{ masternode.ip }}</td>
+                    </tr>
+                    <tr>
+                        <th>Port</th>
+                        <td>{{ masternode.port }}</td>
+                    </tr>
+                    <tr>
+                        <th>Private_key</th>
+                        <td>{{ masternode.privateKey }}</td>
+                    </tr>
+                    <tr>
+                        <th>Tx_id</th>
+                        <td>{{ masternode.txId }}</td>
+                    </tr>
+                    <tr>
+                        <th>Tx_out</th>
+                        <td>{{ masternode.txOut }}</td>
+                    </tr>
+                    <tr>
+                        <th>User</th>
+                        <td>{{ masternode.user.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="row col-12">
+                                <div class="mx-2">
+                                    <a href="{{ path('masternode_index') }}">
+                                        <button class="btn btn-secondary install-button">Go Back</button>
+                                    </a>
+                                </div>
+                                <div class="mr-2">
+                                    <a href="{{ path('masternode_edit', {'id': masternode.id}) }}">
+                                        <button class="btn btn-info install-button">Edit</button>
+                                    </a>
+                                </div>
+                                {{ include('masternode/_delete_form.html.twig') }}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
